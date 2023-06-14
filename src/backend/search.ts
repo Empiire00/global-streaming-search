@@ -26,12 +26,13 @@ class CountryOffers {
   }
 }
 class Offer {
-  id: string
+  id: number
   short_name: string
   clear_name: string
   icon_uri: string
   monetization_types: [string]
   url: string
+  seasons?: number 
 }
 
 export async function get_all_info_from_id(search: IDSearch, providers: [Provider]): Promise<TVOrMovie> {
@@ -58,7 +59,7 @@ export async function get_all_info_from_id(search: IDSearch, providers: [Provide
     i = i.info
 
     if ("offers" in i) {
-      let os: any = []
+      let os: Offer[] = []
       var append_os = i["offers"].map(async (i: any) => {
         if (i["monitization_types"] == "flatrate" || "ads" || "free") {
           providers.forEach(provider => {
